@@ -12,15 +12,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.31",
+    "@types/node": "^16.18.30",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "axios": "^1.4.0",
+    "framer-motion": "^10.12.16",
     "formik": "^2.2.9",
-    "monaco-editor": "^0.40.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-monaco-editor": "^0.53.0",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-scripts": "5.0.1",
@@ -30,9 +29,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false CI=false react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "vercel-build": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -52,7 +52,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@types/react-monaco-editor": "^0.53.0"
+  "engines": {
+    "node": ">=14.0.0"
   }
 } 
