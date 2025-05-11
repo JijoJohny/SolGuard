@@ -1,151 +1,218 @@
-# SolGuard - Solana Smart Contract Security Analyzer
+# SolGuard
 
-SolGuard is a comprehensive security analysis tool for Solana smart contracts written in Rust. It provides static analysis, vulnerability detection, and security best practices enforcement.
+SolGuard is a comprehensive security analysis tool for Solana smart contracts, providing real-time analysis, AI-powered suggestions, and advanced collaboration features.
 
 ## Features
 
-- Static analysis of Solana smart contracts
-- Vulnerability detection and reporting
-- Security best practices enforcement
-- Real-time analysis results
-- Project management and collaboration
-- User authentication and authorization
-- API for integration with other tools
-
-## Architecture
-
-The project consists of three main components:
-
-1. **Backend (Rust)**
-   - Core static analysis engine
-   - REST API endpoints
-   - Database integration
-   - Authentication and authorization
-
-2. **Frontend (React)**
-   - Modern, responsive UI
-   - Real-time analysis results
-   - Project management interface
-   - User authentication
-
-3. **Database (PostgreSQL)**
-   - User data
-   - Project information
-   - Analysis results
-   - Security rules
+- **Smart Contract Analysis**: Real-time security analysis of Solana smart contracts
+- **AI Integration**: AI-powered code suggestions and improvements
+- **Vulnerability Detection**: Advanced vulnerability detection and reporting
+- **Project Management**: Comprehensive project management and collaboration tools
+- **Custom Rules**: Configurable security rules and patterns
+- **CI/CD Integration**: Seamless integration with CI/CD pipelines
+- **Real-time Collaboration**: Multi-user collaboration with real-time updates
+- **Advanced Notifications**: Configurable notification system for security alerts
 
 ## Prerequisites
 
+### System Requirements
+- Node.js >= 14.0.0
+- Rust >= 1.70.0
+- PostgreSQL >= 13.0
 - Docker and Docker Compose
-- Node.js 18+ (for local development)
-- Rust 1.75+ (for local development)
-- PostgreSQL 14+ (for local development)
-- Redis 7+ (for local development)
+- Git
 
-## Getting Started
+### Development Tools
+- VS Code (recommended) with extensions:
+  - Rust Analyzer
+  - ESLint
+  - Prettier
+  - Docker
+- Postman (for API testing)
+- pgAdmin (for database management)
 
-1. Clone the repository:
+## Installation
+
+1. **Clone the Repository**
    ```bash
    git clone https://github.com/yourusername/solguard.git
    cd solguard
    ```
 
-2. Start the development environment:
+2. **Environment Setup**
    ```bash
-   docker-compose up -d
+   # Create environment files
+   touch .env
+   cd solguard/frontend
+   touch .env
+   cd ../..
    ```
 
-3. Access the application:
-   - Frontend: http://localhost:3000
-   - Backend API: http://localhost:8080
-   - Database: localhost:5432
-   - Redis: localhost:6379
+3. **Configure Environment Variables**
+   
+   In root `.env`:
+   ```
+   # Frontend Environment Variables
+   REACT_APP_API_URL=http://localhost:8000
+   REACT_APP_WS_URL=ws://localhost:8000
+   REACT_APP_ENV=development
+   REACT_APP_VERSION=0.1.0
+
+   # Backend Environment Variables
+   RUST_ENV=development
+   DATABASE_URL=postgres://postgres:postgres@localhost:5432/solguard
+   REDIS_URL=redis://localhost:6379
+
+   # Database Configuration
+   POSTGRES_USER=postgres
+   POSTGRES_PASSWORD=postgres
+   POSTGRES_DB=solguard
+   POSTGRES_HOST=localhost
+   POSTGRES_PORT=5432
+   ```
+
+   In `solguard/frontend/.env`:
+   ```
+   REACT_APP_API_URL=http://localhost:8000
+   REACT_APP_WS_URL=ws://localhost:8000
+   REACT_APP_ENV=development
+   ```
+
+4. **Install Dependencies**
+
+   Frontend:
+   ```bash
+   cd solguard/frontend
+   npm install
+   cd ../..
+   ```
+
+   Backend:
+   ```bash
+   cd solguard/backend
+   cargo build
+   cd ../..
+   ```
+
+5. **Database Setup**
+   ```bash
+   # Start PostgreSQL
+   # Windows: Start PostgreSQL service
+   # Linux/Mac:
+   sudo service postgresql start
+
+   # Create database
+   createdb solguard
+   ```
+
+## Running the Application
+
+### Using Docker Compose (Recommended)
+```bash
+# Start all services
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop services
+docker-compose down
+```
+
+### Running Services Individually
+
+Frontend:
+```bash
+cd solguard/frontend
+npm start
+```
+
+Backend:
+```bash
+cd solguard/backend
+cargo run
+```
 
 ## Development
 
-### Backend Development
+### Project Structure
+See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed project structure and file purposes.
 
-1. Install Rust dependencies:
-   ```bash
-   cargo build
-   ```
+### Development Workflow
+1. Create a new branch for your feature
+2. Make changes and test locally
+3. Run tests before committing
+4. Create a pull request
 
-2. Run the backend server:
-   ```bash
-   cargo run
-   ```
+### Testing
+```bash
+# Frontend tests
+cd solguard/frontend
+npm test
 
-### Frontend Development
-
-1. Install Node.js dependencies:
-   ```bash
-   cd frontend
-   npm install
-   ```
-
-2. Start the development server:
-   ```bash
-   npm start
-   ```
-
-## API Documentation
-
-The API documentation is available at http://localhost:8080/api/docs when running the backend server.
-
-### Authentication
-
-All API endpoints require authentication using JWT tokens. Include the token in the Authorization header:
-
-```
-Authorization: Bearer <your-token>
+# Backend tests
+cd solguard/backend
+cargo test
 ```
 
-### Main Endpoints
+## Deployment
 
-- `POST /api/auth/login` - User login
-- `POST /api/auth/register` - User registration
-- `GET /api/auth/me` - Get current user
-- `POST /api/analysis/analyze` - Run security analysis
-- `GET /api/analysis/{id}` - Get analysis results
-- `GET /api/projects` - List projects
-- `POST /api/projects` - Create project
+### Frontend Deployment (Vercel)
+```bash
+# Deploy to Vercel
+vercel
 
-## Security Rules
+# Deploy to production
+vercel --prod
+```
 
-SolGuard includes a comprehensive set of security rules for Solana smart contracts:
+### Backend Deployment
+```bash
+# Build Docker image
+docker build -t solguard-backend .
 
-1. **Access Control**
-   - Owner-only function checks
-   - Proper authority validation
-   - Role-based access control
+# Deploy to your preferred cloud provider
+```
 
-2. **Input Validation**
-   - Parameter bounds checking
-   - Type validation
-   - Input sanitization
+## Troubleshooting
 
-3. **State Management**
-   - Atomic operations
-   - State consistency
-   - Proper error handling
+### Common Issues
 
-4. **Financial Security**
-   - Balance checks
-   - Overflow protection
-   - Fee validation
+1. **Frontend can't connect to backend**
+   - Check if backend is running
+   - Verify REACT_APP_API_URL in frontend .env
+   - Check CORS settings
+
+2. **Database connection fails**
+   - Verify PostgreSQL is running
+   - Check database credentials
+   - Ensure database exists
+
+3. **Docker services fail to start**
+   - Check Docker logs: `docker-compose logs`
+   - Verify port availability
+   - Check Docker daemon status
+
+### Getting Help
+- Check the [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed documentation
+- Open an issue in the GitHub repository
+- Contact the maintainers
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details.
 
 ## Support
 
-For support, please open an issue in the GitHub repository or contact the maintainers. 
+For support, please:
+1. Check the [ARCHITECTURE.md](./ARCHITECTURE.md) documentation
+2. Open an issue in the GitHub repository
+3. Contact the maintainers 
