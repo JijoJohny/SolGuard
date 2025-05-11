@@ -23,19 +23,19 @@ anyhow = "1.0"
 regex = "1.10"
 
 # Web API dependencies
-actix-web = "4.4"
+actix-web = "4.0"
 actix-cors = "0.6"
-actix-rt = "2.9"
+actix-rt = "2.0"
 actix-session = "0.7"
 actix-identity = "0.5"
-jsonwebtoken = "9.2"
-bcrypt = "0.15"
+jsonwebtoken = "8.0"
+bcrypt = "0.10"
 validator = "0.16"
 futures = "0.3"
-tokio = { version = "1.35", features = ["full"] }
+tokio = { version = "1.0", features = ["full"] }
 
 # Database dependencies
-sqlx = { version = "0.7", features = ["runtime-tokio-rustls", "postgres", "chrono", "uuid"] }
+sqlx = { version = "0.6", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json"] }
 redis = { version = "0.23", features = ["tokio-comp"] }
 
 # Async runtime
@@ -43,8 +43,8 @@ async-trait = "0.1"
 futures-util = "0.3"
 
 # Testing
-mockall = "0.12"
-test-case = "3.3"
+mockall = "0.11"
+test-case = "3.0"
 tokio-test = "0.4"
 
 # Monitoring and metrics
@@ -57,4 +57,13 @@ metrics-exporter-prometheus = "0.12"
 # Security
 ring = "0.17"
 rand = "0.8"
-base64 = "0.21" 
+base64 = "0.21"
+
+# AI model integration
+uuid = { version = "1.0", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+dotenv = "0.15"
+tensorflow = "0.20"
+tract-onnx = "0.15"
+tract-ndarray = "0.15"
+ndarray = "0.15" 

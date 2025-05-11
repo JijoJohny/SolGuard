@@ -1,0 +1,46 @@
+{
+  "security_analyzer": {
+    "model_type": "TensorFlow",
+    "model_path": "models/security_analyzer.pb",
+    "input_shape": [1, 512],
+    "output_shape": [1, 256],
+    "parameters": {
+      "confidence_threshold": 0.8,
+      "max_sequence_length": 512,
+      "batch_size": 1
+    }
+  },
+  "code_generator": {
+    "model_type": "ONNX",
+    "model_path": "models/code_generator.onnx",
+    "input_shape": [1, 1024],
+    "output_shape": [1, 2048],
+    "parameters": {
+      "temperature": 0.7,
+      "max_length": 2048,
+      "top_p": 0.9
+    }
+  },
+  "vulnerability_analyzer": {
+    "model_type": "TensorFlow",
+    "model_path": "models/vulnerability_analyzer.pb",
+    "input_shape": [1, 256],
+    "output_shape": [1, 128],
+    "parameters": {
+      "confidence_threshold": 0.85,
+      "max_sequence_length": 256,
+      "batch_size": 1
+    }
+  },
+  "pattern_detector": {
+    "model_type": "ONNX",
+    "model_path": "models/pattern_detector.onnx",
+    "input_shape": [1, 384],
+    "output_shape": [1, 64],
+    "parameters": {
+      "confidence_threshold": 0.75,
+      "max_sequence_length": 384,
+      "batch_size": 1
+    }
+  }
+} 
